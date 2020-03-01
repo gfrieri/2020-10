@@ -18,108 +18,119 @@ public class EjercicioVectores {
      */
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-        System.out.println();
 
-        int n, x, c, codm, y, j, bomb;
+        int n, cmen, cmay, sw, cb, conteo;
         float men, may, prom;
-        x = 0;
-        y = 0;
-        j = 0;
-        men=-1;
-        bomb = -1;
-
-        System.out.println("Bienvenido a códigos y notas");
-        System.out.println("\\¿Cuántos alumnos desea agregar a la lista?");
+        System.out.print("Ingrese el número de alumnos: ");
+        System.out.println("");
         n = leer.nextInt();
+        conteo = 0;
+
         int cod[] = new int[n * 10];
         float not[] = new float[n * 10];
 
         for (int i = 0; i < n * 10; i++) {
             cod[i] = 0;
         }
-
-        for (int i = 0; i < n + j; i++) {
+        for (int i = 0; i < n * 10; i++) {
             not[i] = -1;
         }
 
-        for (int i = 0; i < n + j; i++) {
-            System.out.print("Ingrese el código del alumno #" + (i + 1) + ": ");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Escriba el código del alumno #" + (i + 1) + ": ");
             cod[i] = leer.nextInt();
         }
-        for (int i = 0; i < n + j; i++) {
-            System.out.print("Ingrese la nota del alumno " + (cod[i]) + ": ");
+        System.out.println("");
+        for (int i = 0; i < n; i++) {
+            System.out.print("Escriba la nota del alumno #" + (i + 1) + ", código " + cod[i] + ": ");
             not[i] = leer.nextFloat();
         }
-        while (x == 0) {
-            men = not[1];
-            for (int i = 0; i < n + j; i++) {
-                if (men > not[i] && not[i] >= 0) {
+        System.out.println("");
+
+        sw = 1;
+        while (sw == 1 || sw == 2) {
+            cmen = cod[0];
+            cmay = cod[0];
+            men = not[0];
+            may = not[0];
+
+            for (int i = 1; i < n+conteo; i++) {
+                if (men > not[i]) {
                     men = not[i];
+                    cmen = cod[i];
                 }
             }
-
-            may = not[1];
-            codm = cod[1];
-            for (int i = 0; i < n + j; i++) {
-                if (may < not[i] && not[i] <= 5) {
+            for (int i = 1; i < n+conteo; i++) {
+                if (may < not[i]) {
                     may = not[i];
-                    codm = cod[i];
+                    cmay = cod[i];
                 }
             }
 
             prom = 0;
-            for (int i = 0; i < n + j; i++) {
+            for (int i = 0; i < n+conteo; i++) {
                 prom = prom + not[i];
             }
-
-            prom = prom / n + j;
-
-            System.out.println("¿Desea agregar o eliminar estudiantes o desea salir?");
+            prom = prom / (n+conteo);
             System.out.println("");
-            System.out.println("Escriba");
-            System.out.println("0 para continuar");
-            System.out.println("1 para salir");
+            System.out.println("La menor nota es: " + men + ", del alumno: " + cmen);
+            System.out.println("La mayor nota es: " + may + ", del alumno: " + cmay);
+            System.out.println("El promedio de todos los estudiantes es: " + prom);
             System.out.println("");
-            x = leer.nextInt();
 
-            if (x == 0) {
-                System.out.println("¡Desea agregar o eliminar estudiantes?");
-                System.out.println("0 para agregar");
-                System.out.println("1 para eliminar");
-                y = leer.nextInt();
-                if (y == 0) {
+            System.out.println(" ");
+            System.out.println("¿Desea agregar o eliminar estudiantes?");
+            System.out.println("Para agregar digite 1");
+            System.out.println("Para eliminar digite 2");
+            System.out.println("Para salir digite cualquier otro número");
+            System.out.println(" ");
+            System.out.print("Ingrese la opción deseada: ");
+            sw = leer.nextInt();
 
-                    while (bomb == -1) {
-                        for (int i = 0; i < n * 10; i++) {
-                            if (cod[i] == 0) {
-                                bomb = i;
+            switch (sw) {
+                case 1:
+                    conteo = conteo + 1;
+                    System.out.print("Ingrese el código del alumno que desea agregar: ");
+                    cod[n + conteo -1] = leer.nextInt();
+
+                    System.out.print("Ingrese la nota del alumno que desea agregar: ");
+                    not[n + conteo -1] = leer.nextFloat();
+                    break;
+
+                case 2:
+                    System.out.print("Ingrese el código del alumno que desea eliminar: ");
+                    cb = leer.nextInt();
+
+                    for (int i = 0; i < n + conteo; i++) {
+                        if (cb == cod[i]) {
+                            cod[i] = 0;
+                            not[i] = -1;
+                        }
+                    }
+                    conteo = conteo - 1;
+                    for (int i = 0; i <= n + conteo; i++) {
+                        if (cod[i] == 0) {
+                            for (int j = i; j <= (n + conteo); j++) {
+                                cod[j] = cod[j + 1];
                             }
                         }
                     }
+                    cod[n + conteo + 1] = 0;
 
-                    j = j + 1;
-                    System.out.println("Ingrese el código del alumno que desea agregar");
-                    cod[bomb] = leer.nextInt();
-
-                    System.out.println("Ingrese la nota del alumno");
-                    not[bomb] = leer.nextFloat();
-                }
-                if (y == 1) {
-                    System.out.println("Ingrese el código del alumno que desea eliminar");
-                    c = leer.nextInt();
-                    for (int i = 0; i < n * 10; i++) {
-                            if (cod[i] == c) {
-                                cod[i]= 0;
-                                not[i]=-1;
+                    for (int i = 0; i <= n + conteo; i++) {
+                        if (not[i] == -1) {
+                            for (int j = i; j <= (n + conteo); j++) {
+                                not[j] = not[j + 1];
                             }
                         }
-                }
+                    }
+                    not[n + conteo + 1] = -1;
+                    break;
+                default:
+                    System.out.println("Gracias, vuelva pronto");
 
             }
         }
-        
-        System.out.println("La menor nota es: "+men);
-        System.out.println()
 
     }
 
