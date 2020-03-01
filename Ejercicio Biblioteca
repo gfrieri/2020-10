@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejercicio.biblioteca.pkg17.pkg02.pkg2020;
+package ejerciciobiblioteca;
 
 import java.util.Scanner;
 
@@ -11,89 +11,87 @@ import java.util.Scanner;
  *
  * @author gfrieri
  */
-public class EjercicioBiblioteca17022020 {
+public class EjercicioBiblioteca {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Scanner leer = new Scanner(System.in);
-
-        int cod, op, salir, conteo, sal2, z;
-        int B[][] = new int[10][3];
-
-        for (int x = 0; x < 10; x++) {
-            B[x][0] = -1;
+        int cod, sw, conteo, copia;
+        copia = -1;
+        conteo = 0;
+        sw = 1;
+        int B[][] = new int[20][3];
+        for (int i = 0; i < 20; i++) {
+            B[i][0] = -1;
         }
 
-        salir = 0;
-
-        System.out.println("Bienvenido a organizador de biblioteca");
-        System.out.println("");
-
-        while (salir == 0) {
+        while (sw != 3) {
+            System.out.println("");
             System.out.print("Ingrese el código del libro que desea buscar: ");
             cod = leer.nextInt();
-            op = 2;
-            conteo = 0;
-            sal2 = 2;
-            z = 0;
 
-            while (op == 2) {
+            for (int i = 0; i < 20; i++) {
+                if (cod == B[i][0]) {
+                    System.out.println("");
+                    System.out.println("El código ingresado es: " + B[i][0]);
+                    System.out.println("El código de ubicación es: " + B[i][1]);
+                    System.out.println("El código interno es: " + B[i][2]);
+                    System.out.println("");
+                    copia = cod;
+                    System.out.println("¿Qué desea hacer ahora?");
+                    System.out.println("Para buscar otro libro digite 1");
+                    System.out.println("Para agregar otro libro digite 2");
+                    System.out.println("Para salir digite 3");
+                    System.out.print("Ingrese la opción deseada: ");
+                    sw = leer.nextInt();
+                } else {
+                    if (i == 19 && cod != B[19][0]) {
+                        if (B[conteo][0] == -1 && copia != cod) {
+                            System.out.println("");
+                            System.out.println("El libro no se encuentra en la lista, ¿Desea agregar un nuevo libro?");
+                            System.out.println("Para buscar otro libro digite 1");
+                            System.out.println("Para agregar otro libro digite 2");
+                            System.out.println("Para salir digite 3");
+                            System.out.print("Ingrese la opción deseada: ");
+                            sw = leer.nextInt();
+                        }
 
-                if (cod == B[z][0]) {
-                    System.out.println("El código ingresado es: " + B[z][0]);
-                    System.out.println("El código de ubicación es: " + B[z][1]);
-                    System.out.println("El código interno es: " + B[z][2]);
-
-                    System.out.println("\n Si desea buscar otro libro digite 2");
-                    System.out.println("Si desea salir digite 1");
-                    System.out.print("\n Ingrese aquí su opción deseada: ");
-                    op = leer.nextInt();
-                }
-
-                if (cod != B[z][0] && z == 9) {
-                    System.out.println("\n El código ingresado no existe. ¿Desea añadir un nuevo libro?");
-                    System.out.println("Digite 0 para si");
-                    System.out.println("Digite 1 para no");
-                    System.out.print("\n Ingrese aquí su opción deseada: ");
-                    op = leer.nextInt();
-                }
-                z = z + 1;
-            }
-
-            if (op == 0) {
-                z=0;
-                while (z < 10 || sal2 != 0 || sal2 != 1) {
-
-                    if (B[z][0] == -1) {
-                        System.out.println("");
-                        
-                        System.out.print("Ingrese el código del libro: ");
-                        B[z][0] = leer.nextInt();
-                        System.out.print("Ingrese el código de ubicación: ");
-                        B[z][1] = leer.nextInt();
-                        System.out.print("Ingrese el código interno: ");
-                        B[z][2] = leer.nextInt();
-
-                        System.out.println("\n Si desea buscar otro libro digite 0");
-                        System.out.println("Si desea salir digite 1");
-                        System.out.print("\n Ingrese aquí su opción deseada: ");
-                        sal2 = leer.nextInt();
-                    } else {
-                        z = z + 1;
                     }
                 }
-            } else {
-                if (op == 1) {
-                    System.out.println("Gracias por utilizar nuestros servicios");
 
-                    System.out.println("\n Si desea buscar otro libro digite 0");
-                    System.out.println("Si desea salir digite 1");
-                    System.out.print("\n Ingrese aquí su opción deseada: ");
-                    salir = leer.nextInt();
-                }
+            }
+            switch (sw) {
+                case 1:
+                    break;
+                case 2:
+                    if (B[conteo][0] == -1) {
+                        System.out.println("");
+                        System.out.print("Ingrese el código del libro: ");
+                        B[conteo][0] = leer.nextInt();
+                        System.out.print("Ingrese el código de ubicación: ");
+                        B[conteo][1] = leer.nextInt();
+                        System.out.print("Ingrese el código interno: ");
+                        B[conteo][2] = leer.nextInt();
+                        conteo = conteo + 1;
+                    }
+                    break;
+                case 3:
+                    System.out.println("");
+                    System.out.println("Gracias por venir");
+                    break;
+                default:
+                    System.out.println("");
+                    System.out.println("El número ingresado es invalido");
+                    System.out.println("Para buscar otro libro digite 1");
+                    System.out.println("Para agregar otro libro digite 2");
+                    System.out.println("Para salir digite 3");
+                    System.out.print("Ingrese la opción deseada: ");
+                    sw = leer.nextInt();
             }
         }
+
     }
+
 }
